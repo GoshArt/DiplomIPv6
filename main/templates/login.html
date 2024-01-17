@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    Вход
+{% endblock %}
+
+{% block content %}
+    {#    {% include "main/fragments/header.html" %}#}
+    <div class="row justify-content-center mt-3">
+        <div class="col-8">
+            <a href="/" class="mt-2 h5 text-decoration-none" style="margin-right: 2rem">На главную</a>
+            <a href="/registration" class="mt-2 h5 text-decoration-none">Регистрация</a>
+            <hr class="mt-0 mb-4">
+            <div class="mt-2 h2 mb-3">Вход</div>
+            <form class="row" method="post" action="">
+                <div class="mb-3 col-12">
+                    <label for="loginName" class="form-label">Имя Фамилия</label>
+                    <input type="text" class="form-control" id="loginName" name="username" required>
+                    <div id="emailHelp" class="form-text">Введите своё имя и фамилию</div>
+                </div>
+                <div class="mb-3 col-12">
+                    <label for="loginPassword" class="form-label">Пароль</label>
+                    <input type="password" class="form-control" id="loginPassword" name="password"  minlength="8" maxlength="10" required>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success mt-3 col-3 ">Войти</button>
+                </div>
+                {% csrf_token %}
+            </form>
+        </div>
+    </div>
+{% endblock %}

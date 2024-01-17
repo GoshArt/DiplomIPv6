@@ -1,0 +1,84 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    Главная
+{% endblock %}
+
+{% block content %}
+    {#    {% include "main/fragments/header.html" %}#}
+    <div class="row justify-content-center mt-3">
+        <div class="col-8">
+            <a href="/registration" class="mt-2 h5 text-decoration-none" style="margin-right: 2rem">Регистрация</a>
+            {% if auth == False %}
+                <a href="/login" class="mt-2 h5 text-decoration-none">Войти</a>
+            {% else %}
+                <a href="/logout" class="mt-2 h5 text-decoration-none">Выйти</a>
+            {% endif %}
+            <hr class="mt-0 mb-4">
+        </div>
+    </div>
+    <div class="row justify-content-center mt-3">
+        <ol class="list-group list-group-numbered">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <form action="/lecture" method="post" class="d-flex flex-column w-100">
+                    {% csrf_token %}
+                    <p>Преимущества IPv6</p>
+                    <input type="hidden" name="number" value="1">
+                    <button class="btn btn-primary" style="width: max-content" type="submit">Открыть лекцию</button>
+                </form>
+{#                <a href="/lecture1" class="ms-2 me-auto text-decoration-none text-black">Преимущества IPv6</a>#}
+                <span class="badge bg-success rounded-pill">1</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                 <form action="/lecture" method="post" class="d-flex flex-column w-100">
+                     {% csrf_token %}
+                    <p>Заголовок пакета </p>
+                    <input type="hidden" name="number" value="2">
+                    <button class="btn btn-primary" style="width: max-content" type="submit">Открыть лекцию</button>
+                </form>
+{#                <a href="/lecture2" class="ms-2 me-auto text-decoration-none text-black">Заголовок пакета IPv6</a>#}
+                <span class="badge bg-success rounded-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                 <form action="/lecture" method="post" class="d-flex flex-column w-100">
+                     {% csrf_token %}
+                    <p>Сокращение адресов IPv6</p>
+                    <input type="hidden" name="number" value="3">
+                    <button class="btn btn-primary" style="width: max-content" type="submit">Открыть лекцию</button>
+                </form>
+{#                <a href="/lecture3" class="ms-2 me-auto text-decoration-none text-black">Сокращение адресов IPv6</a>#}
+                <span class="badge bg-success rounded-pill">3</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <form action="/lecture" method="post" class="d-flex flex-column w-100">
+                    {% csrf_token %}
+                    <p>Создание подсетей в протоколе IPv6</p>
+                    <input type="hidden" name="number" value="4">
+                    <button class="btn btn-primary" style="width: max-content" type="submit">Открыть лекцию</button>
+                </form>
+{#                <a href="/lecture4" class="ms-2 me-auto text-decoration-none text-black">Создание подсетей в протоколе IPv6</a>#}
+                <span class="badge bg-success rounded-pill">4</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <form action="/lecture" method="post" class="d-flex flex-column w-100">
+                    {% csrf_token %}
+                    <p>Специальные адреса IPv6</p>
+                    <input type="hidden" name="number" value="5">
+                    <button class="btn btn-primary" style="width: max-content" type="submit">Открыть лекцию</button>
+                </form>
+{#                 <a href="/lecture5" class="ms-2 me-auto text-decoration-none text-black">Специальные адреса IPv6</a>#}
+                <span class="badge bg-success rounded-pill">5</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <form action="/lecture" method="post" class="d-flex flex-column w-100">
+                    {% csrf_token %}
+                    <p>Взаимодействие IPv4 и IPv6</p>
+                    <input type="hidden" name="number" value="6">
+                    <button class="btn btn-primary" style="width: max-content" type="submit">Открыть лекцию</button>
+                </form>
+ {#                <a href="/lecture6" class="ms-2 me-auto text-decoration-none text-black">Взаимодействие IPv4 и IPv6</a>#}
+                <span class="badge bg-success rounded-pill">6</span>
+            </li>
+        </ol>
+    </div>
+{% endblock %}

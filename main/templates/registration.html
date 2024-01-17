@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    Регистрация
+{% endblock %}
+
+{% block content %}
+    {#    {% include "main/fragments/header.html" %}#}
+    <div class="row justify-content-center mt-3">
+        <div class="col-8">
+            <a href="/" class="mt-2 h5 text-decoration-none" style="margin-right: 2rem">На главную</a>
+            {% if auth == False or auth == None %}
+                <a href="/login" class="mt-2 h5 text-decoration-none">Войти</a>
+            {% else %}
+                <a href="/logout" class="mt-2 h5 text-decoration-none">Выйти</a>
+            {% endif %}
+            <hr class="mt-0 mb-4">
+            <div class="mt-2 h2 mb-3">Регистрация</div>
+            <form class="row" action="" method="post">
+                <div class="mb-3 col-12">
+                    <label for="registrationName" class="form-label">Имя Фамилия</label>
+                    <input type="text" class="form-control" id="registrationName" name="username" required>
+                    <div class="form-text">Введите своё имя и фамилию</div>
+                </div>
+                <div class="mb-3 col-6">
+                    <label for="registrationGroup" class="form-label">Группа</label>
+                    <input type="number" class="form-control" id="registrationGroup" name="numberGroup" required>
+                    <div class="form-text">Введите номер своей группы</div>
+                </div>
+                <div class="mb-3 col-6">
+                    <label for="registrationCode" class="form-label">Код проверки</label>
+                    <input type="text" class="form-control" id="registrationCode" name="codeReg" required>
+                    <div id="emailHelp" class="form-text">Спросите код для регистрации у преподавателя</div>
+                </div>
+                <div class="mb-3 col-12">
+                    <label for="registrationPassword" class="form-label">Пароль</label>
+                    <input type="password" class="form-control" id="registrationPassword" name="password" minlength="8" maxlength="10" required>
+                    <div class="form-text">Длина пароля 8-10 символов</div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success mt-3 col-3 ">Зарегистрироваться</button>
+                </div>
+                {% csrf_token %}
+            </form>
+            {{ form.username }}
+        </div>
+    </div>
+{% endblock %}

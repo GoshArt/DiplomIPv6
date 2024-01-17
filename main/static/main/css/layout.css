@@ -1,0 +1,37 @@
+.paragraph {
+    line-height: 1.6;
+    padding: 0.5rem 0;
+    word-break: break-word;
+    font-size: 1rem;
+}
+.question {
+    margin-top: 3rem;
+}
+.imageLecture img{
+    width: 100%;
+}
+.positive{
+    padding: 0.5rem 0;
+}
+
+.negative{
+    padding: 0.5rem 0;
+}
+.positive svg{
+    color: greenyellow;
+    width: 3rem;
+    height: 3rem;
+}
+.negative svg{
+    color: crimson;
+    width: 3rem;
+    height: 3rem;
+}
+
+.reduction_address p{
+    font-size: calc(0.9em + 0.4vw);
+}
+
+.reduction_address input{
+    width: calc(19em + 5vw);
+}

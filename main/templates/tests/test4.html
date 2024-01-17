@@ -1,0 +1,280 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    Тест 4
+{% endblock %}
+
+{% block content %}
+    {#    {% include "main/fragments/header.html" %}#}
+    <div class="row justify-content-center mt-3">
+        <div class="col-8">
+            <a href="/" class="mt-2 h5 text-decoration-none" style="margin-right: 2rem">На главную</a>
+            <hr class="mt-0 mb-4">
+            <div class="mt-2 h4">Тест: "Создание подсетей в протоколе IPv6"</div>
+            <form action="/testing" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="number" value="4">
+                {#                1 вопрос#}
+                <div class="question">
+                    <h5>1. Какое влияние создание подсетей в IPv6 имеет на производительность сети?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="question1Question1Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question1Radios1">
+                            a) Уменьшение производительности за счет увеличения широковещательного трафика
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="question1Question1Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question1Radios2">
+                            b) Улучшение производительности за счет уменьшения количества широковещательных пакетов
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="question1Question1Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question1Radios3">
+                            c) Нет влияния на производительность сети
+                        </label>
+                    </div>
+                </div>
+                {#                2 вопрос#}
+                <div class="question">
+                    <h5>2. Какой префикс сети имеется у выданной согласно стандарту RFC 3177 сети?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question2" id="question1Question2Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question2Radios1">
+                            a) /64
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question2" id="question1Question2Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question2Radios2">
+                            b) /128
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question2" id="question1Question2Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question2Radios3">
+                            c) /48
+                        </label>
+                    </div>
+                </div>
+                {#                3 вопрос#}
+                <div class="question">
+                    <h5>3. Какой префикс при создании подсети должен использоваться в IPv6 согласно стандарту?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="question1Question3Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question3Radios1">
+                            a) /48
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="question1Question3Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question3Radios2">
+                            b) /64
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="question1Question3Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question3Radios3">
+                            c) /32
+                        </label>
+                    </div>
+                </div>
+                {#                4 вопрос#}
+                <div class="question">
+                    <h5>4. Какие два вида адресов используются для идентификации подсети в IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question4" id="question1Question4Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question4Radios1">
+                            a) Anycast и Unicast
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question4" id="question1Question4Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question4Radios2">
+                            b) Link-local и Global
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question4" id="question1Question4Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question4Radios3">
+                            c) EUI-64 и Autoconfig
+                        </label>
+                    </div>
+                </div>
+                {#                5 вопрос#}
+                <div class="question">
+                    <h5>5. Какая команда используется для просмотра информации о сетевой конфигурации в IPv6 на
+                        Windows?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question5" id="question1Question5Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question5Radios1">
+                            a) ifconfig
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question5" id="question1Question5Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question5Radios2">
+                            b) ipconfig
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question5" id="question1Question5Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question5Radios3">
+                            c) show ipv6 interface
+                        </label>
+                    </div>
+                </div>
+                {#                6 вопрос#}
+                <div class="question">
+                    <h5>6. Какая команда используется для просмотра информации о сетевой конфигурации в IPv6 на
+                        Linux?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question6" id="question1Question6Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question6Radios1">
+                            a) netstat -a
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question6" id="question1Question6Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question6Radios2">
+                            b) ip addr show
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question6" id="question1Question6Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question6Radios3">
+                            c) show ipv6 config
+                        </label>
+                    </div>
+                </div>
+                {#                7 вопрос#}
+                <div class="question">
+                    <h5>7. Что означает CIDR и как он применяется при создании подсетей в IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question7" id="question1Question7Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question7Radios1">
+                            a) Classless Inter-Domain Routing, позволяет делить IP-адреса на подсети
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question7" id="question1Question7Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question7Radios2">
+                            b) Configuration and Integration of Devices Resources, используется для настройки IPv6
+                            устройств
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question7" id="question1Question7Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question7Radios3">
+                            c) Central Internet Database Registry, используется для управления IP-адресами в сети
+                        </label>
+                    </div>
+                </div>
+                {#                8 вопрос#}
+                <div class="question">
+                    <h5>8. Какие изменения необходимо внести в настройках серверов для работы в новых подсетях?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question8" id="question1Question8Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question8Radios1">
+                            a) Изменить операционную систему
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question8" id="question1Question8Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question8Radios2">
+                            b) Настроить IP-адреса и маршрутизацию
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question8" id="question1Question8Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question8Radios3">
+                            c) Установить новый сетевой адаптер
+                        </label>
+                    </div>
+                </div>
+                {#                9 вопрос#}
+                <div class="question">
+                    <h5>9. Каковы преимущества использования подсетей в IPv6 сравнительно с использованием подсетей в
+                        IPv4?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question9" id="question1Question9Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question9Radios1">
+                            a) Увеличение числа возможных адресов и упрощение маршрутизации
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question9" id="question1Question9Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question9Radios2">
+                            b) Улучшение производительности сети
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question9" id="question1Question9Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question9Radios3">
+                            c) Отсутствие необходимости в использовании DNS
+                        </label>
+                    </div>
+                </div>
+                {#                10 вопрос#}
+                <div class="question">
+                    <h5>10. Какое влияние создание подсетей в протоколе IPv6 имеет на безопасность сети?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question10" id="question1Question10Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question10Radios1">
+                            a) Уменьшение безопасности за счет увеличения широковещательного трафика
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question10" id="question1Question10Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question10Radios2">
+                            b) Увеличение безопасности путем отделения различных сегментов и ограничения доступа
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question10" id="question1Question10Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question10Radios3">
+                            c) Нет влияния на безопасность сети
+                        </label>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success col-3 mt-3">Проверить результаты</button>
+                </div>
+            </form>
+            <div style="margin-bottom: 5rem">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

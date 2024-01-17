@@ -1,0 +1,220 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    Задание 2
+{% endblock %}
+
+{% block content %}
+    {#    {% include "main/fragments/header.html" %}#}
+    <div class="row justify-content-center mt-3">
+        <div class="col-8">
+            <a href="/" class="mt-2 h5 text-decoration-none" style="margin-right: 2rem">На главную</a>
+            <hr class="mt-0 mb-4">
+            <div class="mt-2 h4">Заполните поля заголовка пакета IPv6 и укажите их размер</div>
+        </div>
+        <div class="col-12">
+            <form action="/exercise" method="post">
+                {% csrf_token %}
+                <input type="hidden" value="2" name="number">
+                <table class="table table-bordered mt-0 mb-0">
+                    <tbody>
+                    <tr>
+                        <td class="col-2">
+                            <div class="p-2 d-flex align-items-center flex-column">
+                                <div class="form-group">
+                                    <select class="form-control" name="formChoice1" id="formChoice1">
+                                        <option value="1">Destination address</option>
+                                        <option value="2">Next header</option>
+                                        <option value="3">Source address</option>
+                                        <option value="4">Traffic class</option>
+                                        <option value="5">Version</option>
+                                        <option value="6">Payload length</option>
+                                        <option value="7">Flow label</option>
+                                        <option value="8">Hop limit</option>
+                                    </select>
+                                </div>
+                                <div class="d-flex align-items-center mt-1">
+                                    <input class="form-control form-control-sm" style="width: 3rem" name="size1" type="number" required placeholder="">
+                                    <p class="mt-0 mb-0" style="margin-left: 0.5rem">bit</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-3">
+                            <div class="p-2 d-flex align-items-center flex-column">
+                                <div class="form-group">
+                                    <select class="form-control" name="formChoice2" id="formChoice2">
+                                        <option value="2">Next header</option>
+                                        <option value="3">Source address</option>
+                                        <option value="4">Traffic class</option>
+                                        <option value="5">Version</option>
+                                        <option value="6">Payload length</option>
+                                        <option value="7">Flow label</option>
+                                        <option value="8">Hop limit</option>
+                                        <option value="1">Destination address</option>
+                                    </select>
+                                </div>
+                                <div class="d-flex align-items-center mt-1">
+                                    <input class="form-control form-control-sm" style="width: 3rem" name="size2" type="number" required placeholder="">
+                                    <p class="mt-0 mb-0" style="margin-left: 0.5rem">bit</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-7">
+                            <div class="p-2 d-flex align-items-center flex-column">
+                                <div class="form-group">
+                                    <select class="form-control" name="formChoice3" id="formChoice3">
+                                        <option value="3">Source address</option>
+                                        <option value="4">Traffic class</option>
+                                        <option value="5">Version</option>
+                                        <option value="6">Payload length</option>
+                                        <option value="7">Flow label</option>
+                                        <option value="8">Hop limit</option>
+                                        <option value="1">Destination address</option>
+                                        <option value="2">Next header</option>
+                                    </select>
+                                </div>
+                                <div class="d-flex align-items-center mt-1">
+                                    <input class="form-control form-control-sm" style="width: 3rem" name="size3" type="number" required placeholder="">
+                                    <p class="mt-0 mb-0" style="margin-left: 0.5rem">bit</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered mt-0 mb-0">
+                    <tbody>
+                    <tr>
+                        <td class="col-6">
+                            <div class="p-2 d-flex align-items-center flex-column">
+                                <div class="form-group">
+                                    <select class="form-control" name="formChoice4" id="formChoice4">
+                                        <option value="4">Traffic class</option>
+                                        <option value="5">Version</option>
+                                        <option value="6">Payload length</option>
+                                        <option value="7">Flow label</option>
+                                        <option value="8">Hop limit</option>
+                                        <option value="1">Destination address</option>
+                                        <option value="2">Next header</option>
+                                        <option value="3">Source address</option>
+                                    </select>
+                                </div>
+                                <div class="d-flex align-items-center mt-1">
+                                    <input class="form-control form-control-sm" style="width: 3rem" name="size4"
+                                           type="number" required placeholder="">
+                                    <p class="mt-0 mb-0" style="margin-left: 0.5rem">bit</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-3">
+                            <div class="p-2 d-flex align-items-center flex-column">
+                                <div class="form-group">
+                                    <select class="form-control" name="formChoice5" id="formChoice5">
+                                        <option value="5">Version</option>
+                                        <option value="6">Payload length</option>
+                                        <option value="7">Flow label</option>
+                                        <option value="8">Hop limit</option>
+                                        <option value="1">Destination address</option>
+                                        <option value="2">Next header</option>
+                                        <option value="3">Source address</option>
+                                        <option value="4">Traffic class</option>
+                                    </select>
+                                </div>
+                                <div class="d-flex align-items-center mt-1">
+                                    <input class="form-control form-control-sm" style="width: 3rem" name="size5"
+                                           type="number" required placeholder="">
+                                    <p class="mt-0 mb-0" style="margin-left: 0.5rem">bit</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-3">
+                            <div class="p-2 d-flex align-items-center flex-column">
+                                <div class="form-group">
+                                    <select class="form-control" name="formChoice6" id="formChoice6">
+                                        <option value="6">Payload length</option>
+                                        <option value="7">Flow label</option>
+                                        <option value="8">Hop limit</option>
+                                        <option value="1">Destination address</option>
+                                        <option value="2">Next header</option>
+                                        <option value="3">Source address</option>
+                                        <option value="4">Traffic class</option>
+                                        <option value="5">Version</option>
+                                    </select>
+                                </div>
+                                <div class="d-flex align-items-center mt-1">
+                                    <input class="form-control form-control-sm" style="width: 3rem" name="size6"
+                                           type="number" required placeholder="">
+                                    <p class="mt-0 mb-0" style="margin-left: 0.5rem">bit</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered mt-0 mb-0">
+                    <tbody>
+                    <tr>
+                        <td colspan="3" style="height: 5rem">
+                            <div class="p-2 d-flex align-items-center flex-column">
+                                <div class="form-group">
+                                    <select class="form-control" name="formChoice7" id="formChoice7">
+                                        <option value="7">Flow label</option>
+                                        <option value="8">Hop limit</option>
+                                        <option value="1">Destination address</option>
+                                        <option value="2">Next header</option>
+                                        <option value="3">Source address</option>
+                                        <option value="4">Traffic class</option>
+                                        <option value="5">Version</option>
+                                        <option value="6">Payload length</option>
+                                    </select>
+                                </div>
+                                <div class="d-flex align-items-center mt-1">
+                                    <input class="form-control form-control-sm" style="width: 3rem" name="size7"
+                                           type="number" required placeholder="">
+                                    <p class="mt-0 mb-0" style="margin-left: 0.5rem">bit</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered mt-0 mb-0">
+                    <tbody>
+                    <tr>
+                        <td colspan="3" style="height: 5rem">
+                            <div class="p-2 d-flex align-items-center flex-column">
+                                <div class="form-group">
+                                    <select class="form-control" name="formChoice7" id="formChoice7">
+                                        <option value="8">Hop limit</option>
+                                        <option value="1">Destination address</option>
+                                        <option value="2">Next header</option>
+                                        <option value="3">Source address</option>
+                                        <option value="4">Traffic class</option>
+                                        <option value="5">Version</option>
+                                        <option value="6">Payload length</option>
+                                        <option value="7">Flow label</option>
+                                    </select>
+                                </div>
+                                <div class="d-flex align-items-center mt-1">
+                                    <input class="form-control form-control-sm" style="width: 3rem" name="size7"
+                                           type="number" required placeholder="">
+                                    <p class="mt-0 mb-0" style="margin-left: 0.5rem">bit</p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="d-flex justify-content-center ">
+                    <button type="submit" class="btn btn-success col-3 mt-3">Проверить результаты</button>
+                </div>
+
+            </form>
+            <div style="margin-bottom: 5rem">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+54762831

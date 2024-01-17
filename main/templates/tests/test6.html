@@ -1,0 +1,283 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    Тест 6
+{% endblock %}
+
+{% block content %}
+    {#    {% include "main/fragments/header.html" %}#}
+    <div class="row justify-content-center mt-3">
+        <div class="col-8">
+            <a href="/" class="mt-2 h5 text-decoration-none" style="margin-right: 2rem">На главную</a>
+            <hr class="mt-0 mb-4">
+            <div class="mt-2 h4">Тест: "Взаимодействие IPv4 и IPv6"</div>
+            <form action="/testing" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="number" value="6">
+                {#                1 вопрос#}
+                <div class="question">
+                    <h5>1. Какое утверждение верно относительно совместной работы IPv4 и IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="question1Question1Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question1Radios1">
+                            a) IPv4 и IPv6 протоколы не могут работать параллельно.
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="question1Question1Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question1Radios2">
+                            b) IPv4 и IPv6 могут существовать на одном устройстве, но не могут взаимодействовать между
+                            собой.
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="question1Question1Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question1Radios3">
+                            c) IPv4 и IPv6 могут работать параллельно и взаимодействовать между собой.
+                        </label>
+                    </div>
+                </div>
+                {#                2 вопрос#}
+                <div class="question">
+                    <h5>2. Какой механизм позволяет преобразовывать адреса IPv4 в адреса IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question2" id="question1Question2Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question2Radios1">
+                            a) DNS64
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question2" id="question1Question2Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question2Radios2">
+                            b) NAT64
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question2" id="question1Question2Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question2Radios3">
+                            c) 6to4
+                        </label>
+                    </div>
+                </div>
+                {#                3 вопрос#}
+                <div class="question">
+                    <h5>3. Какой протокол позволяет хосту, подключенному к сети IPv6, передавать трафик через сети
+                        IPv4?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="question1Question3Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question3Radios1">
+                            a) ICMPv4
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="question1Question3Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question3Radios2">
+                            b) MPLS
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="question1Question3Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question3Radios3">
+                            c) 6to4
+                        </label>
+                    </div>
+                </div>
+                {#                4 вопрос#}
+                <div class="question">
+                    <h5>4. Какое утверждение верно относительно технологии туннелирования?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question4" id="question1Question4Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question4Radios1">
+                            a) Туннелирование используется для блокирования трафика IPv6 в сети IPv4.
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question4" id="question1Question4Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question4Radios2">
+                            b) Туннелирование обеспечивает передачу трафика IPv6 по сети IPv4.
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question4" id="question1Question4Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question4Radios3">
+                            c) Туннелирование используется только в односторонних сетях.
+                        </label>
+                    </div>
+                </div>
+                {#                5 вопрос#}
+                <div class="question">
+                    <h5>5. Что подразумевает термин "dual stack"?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question5" id="question1Question5Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question5Radios1">
+                            a) Сеть, которая поддерживает только IPv4.
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question5" id="question1Question5Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question5Radios2">
+                            b) Сеть, которая поддерживает только IPv6.
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question5" id="question1Question5Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question5Radios3">
+                            c) Сеть, которая поддерживает как IPv4, так и IPv6.
+                        </label>
+                    </div>
+                </div>
+                {#                6 вопрос#}
+                <div class="question">
+                    <h5>6. Какой туннельный протокол IPv6 использует локальные IPv4-адреса?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question6" id="question1Question6Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question6Radios1">
+                            a) 6bone
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question6" id="question1Question6Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question6Radios2">
+                            b) ISATAP
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question6" id="question1Question6Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question6Radios3">
+                            c) GRE
+                        </label>
+                    </div>
+                </div>
+                {#                7 вопрос#}
+                <div class="question">
+                    <h5>Какая команда используется для отображения таблицы маршрутизации в операционной системе Windows
+                        для проверки преобразования адресов IPv4 в IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question7" id="question1Question7Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question7Radios1">
+                            a) route print
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question7" id="question1Question7Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question7Radios2">
+                            b) ipconfig
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question7" id="question1Question7Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question7Radios3">
+                            c) netsh interface ipv6 show route
+                        </label>
+                    </div>
+                </div>
+                {#                8 вопрос#}
+                <div class="question">
+                    <h5>8. Какой механизм преобразования адресов позволяет использовать IPv6-серверы для доступа к
+                        ресурсам IPv4?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question8" id="question1Question8Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question8Radios1">
+                            a) DNS64
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question8" id="question1Question8Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question8Radios2">
+                            b) 6to4
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question8" id="question1Question8Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question8Radios3">
+                            c) NAT64
+                        </label>
+                    </div>
+                </div>
+                {#                9 вопрос#}
+                <div class="question">
+                    <h5>9. Какая команда используется для просмотра информации о преобразовании адресов IPv4 в IPv6 в
+                        операционной системе Linux?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question9" id="question1Question9Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question9Radios1">
+                            a) ifconfig
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question9" id="question1Question9Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question9Radios2">
+                            b) ip -6 route
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question9" id="question1Question9Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question9Radios3">
+                            c) show ipv6 nat translation
+                        </label>
+                    </div>
+                </div>
+                {#                10 вопрос#}
+                <div class="question">
+                    <h5>10. Какой механизм используется для построения сетей IPv6 на основе существующих сетей
+                        IPv4?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question10" id="question1Question10Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question10Radios1">
+                            a) 6RD
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question10" id="question1Question10Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question10Radios2">
+                            b) ISATAP
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question10" id="question1Question10Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question10Radios3">
+                            c) MPLS
+                        </label>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success col-3 mt-3">Проверить результаты</button>
+                </div>
+
+            </form>
+            <div style="margin-bottom: 5rem">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+     Лекция 5
+{% endblock %}
+
+{% block content %}
+    {#    {% include "main/fragments/header.html" %}#}
+    <div class="row justify-content-center mt-3">
+        <div class="col-8">
+            <a href="/" class="mt-2 h5 text-decoration-none" style="margin-right: 2rem">На главную</a>
+            <hr class="mt-0 mb-4">
+        </div>
+        <div class="col-8">
+            <div class="mt-2 h4">*НЕ ГОТОВО*</div>
+            <hr class="mt-0 mb-4">
+            <p class="paragraph">Всё в процессе разработки, ждите, оно возможно выйдет.</p>
+            <div class="d-flex justify-content-center">
+                <a href="/testing" class="btn btn-success mb-5">Перейти к тесту</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,275 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    Тест 2
+{% endblock %}
+
+{% block content %}
+    {#    {% include "main/fragments/header.html" %}#}
+    <div class="row justify-content-center mt-3">
+        <div class="col-8">
+            <a href="/" class="mt-2 h5 text-decoration-none" style="margin-right: 2rem">На главную</a>
+            <hr class="mt-0 mb-4">
+            <div class="mt-2 h4">Тест: "Заголовок пакета IPv6"</div>
+            <form action="/testing" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="number" value="2">
+                {#                1 вопрос#}
+                <div class="question">
+                    <h5>1. Что является преимуществом заголовка IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="question2Question1Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question2Question1Radios1">
+                            a) Заголовок сокращенной длины, используемый для уменьшения нагрузки на сеть
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="question2Question1Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question2Question1Radios2">
+                            b) Более эффективные механизмы заголовков расширений
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="question2Question1Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question2Question1Radios3">
+                            c) Меньшая длина заголовка IPv6, в сравнении с IPv4
+                        </label>
+                    </div>
+                </div>
+                {#                2 вопрос#}
+                <div class="question">
+                    <h5>2. Какова длина заголовка в IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question2" id="question2Question2Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question2Question2Radios1">
+                            а) 20 байт
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question2" id="question2Question2Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question2Question2Radios2">
+                            b) 40 байт
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question2" id="question2Question2Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question2Question2Radios3">
+                            c) 60 байт
+                        </label>
+                    </div>
+                </div>
+                {#                3 вопрос#}
+                <div class="question">
+                    <h5>3. Какие поля содержатся в заголовке IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="question2Question3Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question2Question3Radios1">
+                            a) Версия, класс обслуживания, поле метки потока, параметры
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="question2Question3Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question2Question3Radios2">
+                            b) Версия, время жизни, адрес источника, адрес назначения
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="question2Question3Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question2Question3Radios3">
+                            c) Версия, класс обслуживания, адрес источника, адрес назначения
+                        </label>
+                    </div>
+                </div>
+                {#                4 вопрос#}
+                <div class="question">
+                    <h5>4. Какое поле в заголовке IPv6 используется для определения приоритета пакета?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question4" id="question2Question4Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question2Question4Radios1">
+                            a) Поле версии
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question4" id="question2Question4Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question2Question4Radios2">
+                            b) Поле класса обслуживания
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question4" id="question2Question4Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question2Question4Radios3">
+                            c) Поле метки потока
+                        </label>
+                    </div>
+                </div>
+                {#                5 вопрос#}
+                <div class="question">
+                    <h5>5. Как обозначается поле метки потока в заголовке IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question5" id="question2Question5Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question2Question5Radios1">
+                            a) Flow Label
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question5" id="question2Question5Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question2Question5Radios2">
+                            b) Flow Priority
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question5" id="question2Question5Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question2Question5Radios3">
+                            c) Flow Marker
+                        </label>
+                    </div>
+                </div>
+                {#                6 вопрос#}
+                <div class="question">
+                    <h5>6. Какое значение поля версии используется в заголовке IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question6" id="question2Question6Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question2Question6Radios1">
+                            a) 0010
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question6" id="question2Question6Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question2Question6Radios2">
+                            b) 0110
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question6" id="question2Question6Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question2Question6Radios3">
+                            c) 0100
+                        </label>
+                    </div>
+                </div>
+                {#                7 вопрос#}
+                <div class="question">
+                    <h5>7. Для чего используется поле метки потока в заголовке IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question7" id="question2Question7Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question2Question7Radios1">
+                            a) Для управления потоком данных в сети
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question7" id="question2Question7Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question2Question7Radios2">
+                            b) Для маршрутизации пакетов
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question7" id="question2Question7Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question2Question7Radios3">
+                            c) Для обеспечения безопасности пакетов
+                        </label>
+                    </div>
+                </div>
+                {#                8 вопрос#}
+                <div class="question">
+                    <h5>8. Как называется поле, которое позволяет определить приоритет обработки пакета в заголовке IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question8" id="question2Question8Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question2Question8Radios1">
+                            a) Flow Label
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question8" id="question2Question8Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question2Question8Radios2">
+                            b) Class of Service
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question8" id="question2Question8Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question2Question8Radios3">
+                            c) Traffic Class
+                        </label>
+                    </div>
+                </div>
+                {#                9 вопрос#}
+                <div class="question">
+                    <h5>9. Какова максимальная длина поля метки потока в заголовке IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question9" id="question2Question9Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question2Question9Radios1">
+                            a) 8 бит
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question9" id="question2Question9Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question2Question9Radios2">
+                            b) 16 бит
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question9" id="question2Question9Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question2Question9Radios3">
+                            c) 20 бит
+                        </label>
+                    </div>
+                </div>
+                {#                10 вопрос#}
+                <div class="question">
+                    <h5>10. Какое поле в заголовке IPv6 используется для обозначения порта источника?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question10" id="question2Question10Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question2Question10Radios1">
+                            a) Source Port
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question10" id="question2Question10Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question2Question10Radios2">
+                            b) Destination Port
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question10" id="question2Question10Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question2Question10Radios3">
+                            c) В заголовке IPv6 не используется поле для обозначения порта источника
+                        </label>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success col-3 mt-3">Проверить результаты</button>
+                </div>
+            </form>
+            <div style="margin-bottom: 5rem">
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,527 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    Тест 5
+{% endblock %}
+
+{% block content %}
+    {#    {% include "main/fragments/header.html" %}#}
+    <div class="row justify-content-center mt-3">
+        <div class="col-8">
+            <a href="/" class="mt-2 h5 text-decoration-none" style="margin-right: 2rem">На главную</a>
+            <hr class="mt-0 mb-4">
+            <div class="mt-2 h4">Тест: "Преимущества IPv6"</div>
+            <form action="/testing" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="number" value="5">
+                {#                1 вопрос#}
+                <div class="question">
+                    <h5>1. Какое преимущество IPv6 в сравнении с IPv4 связано с размером адреса?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="question1Question1Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question1Radios1">
+                            a) Меньший размер адреса
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="question1Question1Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question1Radios2">
+                            b) Больший размер адреса
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="question1Question1Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question1Radios3">
+                            c) Одинаковый размер адреса
+                        </label>
+                    </div>
+                </div>
+                {#                2 вопрос#}
+                <div class="question">
+                    <h5>2. Какие функции поддерживаются непосредственно в протоколе IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question2" id="question1Question2Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question2Radios1">
+                            a) Поддержка маршрутизации и безопасности
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question2" id="question1Question2Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question2Radios2">
+                            b) Поддержка качества обслуживания и многоадресной доставки
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question2" id="question1Question2Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question2Radios3">
+                            c) Поддержка виртуальной частной сети и многоадресной доставки
+                        </label>
+                    </div>
+                </div>
+                {#                3 вопрос#}
+                <div class="question">
+                    <h5>3. Чем обусловлено необходимое увеличение адресного пространства в IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="question1Question3Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question3Radios1">
+                            a) Увеличением числа пользователей
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="question1Question3Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question3Radios2">
+                            b) Ростом числа подключенных устройств
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="question1Question3Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question3Radios3">
+                            c) Улучшением качества связи
+                        </label>
+                    </div>
+                </div>
+                {#                4 вопрос#}
+                <div class="question">
+                    <h5>4. Чем обусловлено улучшение маршрутизации и обработки пакетов в IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question4" id="question1Question4Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question4Radios1">
+                            a) Уменьшением размера заголовка
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question4" id="question1Question4Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question4Radios2">
+                            b) Лучшим функционалом маршрутизаторов
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question4" id="question1Question4Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question4Radios3">
+                            c) Поддержкой более эффективных алгоритмов
+                        </label>
+                    </div>
+                </div>
+                {#                5 вопрос#}
+                <div class="question">
+                    <h5>5. В чем состоит преимущество IPv6 в обеспечении безопасности передачи данных?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question5" id="question1Question5Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question5Radios1">
+                            a) Встроенная поддержка IPsec
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question5" id="question1Question5Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question5Radios2">
+                            b) Улучшенная защита файрволлом
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question5" id="question1Question5Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question5Radios3">
+                            c) Более сложные схемы шифрования
+                        </label>
+                    </div>
+                </div>
+                {#                6 вопрос#}
+                <div class="question">
+                    <h5>6. Поддерживает ли протокол IPv6 гибкую поддержку качества обслуживания (QoS)?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question6" id="question1Question6Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question6Radios1">
+                            a) Да
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question6" id="question1Question6Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question6Radios2">
+                            b) Нет
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question6" id="question1Question6Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question6Radios3">
+                            c) Только на новом оборудовании
+                        </label>
+                    </div>
+                </div>
+                {#                7 вопрос#}
+                <div class="question">
+                    <h5>7. Какие преимущества у IPv6 в области многоадресной доставки?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question7" id="question1Question7Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question7Radios1">
+                            a) Улучшенные функции для создания многоадресных групп
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question7" id="question1Question7Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question7Radios2">
+                            b) Более широкий диапазон доступных адресов многоадресной доставки
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question7" id="question1Question7Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question7Radios3">
+                            c) Ограничения в использовании одного многоадресного адреса
+                        </label>
+                    </div>
+                </div>
+                {#                8 вопрос#}
+                <div class="question">
+                    <h5>8. Какова длина адреса IPV6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question8" id="question1Question8Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question8Radios1">
+                            a) 32 бит
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question8" id="question1Question8Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question8Radios2">
+                            b) 64 бит
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question8" id="question1Question8Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question8Radios3">
+                            c) 128 бит
+                        </label>
+                    </div>
+                </div>
+                {#                9 вопрос#}
+                <div class="question">
+                    <h5>9. Какое преимущество обеспечивает большая емкость заголовка IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question9" id="question1Question9Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question9Radios1">
+                            a) Увеличение пропускной способности сети
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question9" id="question1Question9Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question9Radios2">
+                            b) Обеспечение большей гибкости и функциональности
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question9" id="question1Question9Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question9Radios3">
+                            c) Ускорение отправки пакета в сети
+                        </label>
+                    </div>
+                </div>
+                {#                10 вопрос#}
+                <div class="question">
+                    <h5>10. Какие протоколы обеспечивают безопасное туннелирование в IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question10" id="question1Question10Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question10Radios1">
+                            a) IPsec и PPTP
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question10" id="question1Question10Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question10Radios2">
+                            b) IPsec и GRE
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question10" id="question1Question10Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question10Radios3">
+                            c) L2TP и PPTP
+                        </label>
+                    </div>
+                </div>
+                {#                11 вопрос#}
+                <div class="question">
+                    <h5>11. Каково преимущество IPv6 в обеспечении возможностей мобильности?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question11" id="question1Question11Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question11Radios1">
+                            a) Более гибкие и безопасные средства авторизации
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question11" id="question1Question11Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question11Radios2">
+                            b) Лучшая поддержка роуминга между сетями
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question11" id="question1Question11Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question11Radios3">
+                            c) Более быстрая передача данных
+                        </label>
+                    </div>
+                </div>
+                {#                12 вопрос#}
+                <div class="question">
+                    <h5>12. В чем заключается преимущество IPv6 в поддержке динамической конфигурации адресов?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question12" id="question1Question12Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question12Radios1">
+                            a) Более сложные алгоритмы использования адресов
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question12" id="question1Question12Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question12Radios2">
+                            b) Автоматическое назначение адресов без участия администратора
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question12" id="question1Question12Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question12Radios3">
+                            c) Улучшение возможностей передачи широковещательных сигналов
+                        </label>
+                    </div>
+                </div>
+                {#                13 вопрос#}
+                <div class="question">
+                    <h5>13. Какая особенность IPv6 обеспечивает поддержку пакетов большего размера?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question13" id="question1Question13Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question13Radios1">
+                            a) Больший размер заголовка
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question13" id="question1Question13Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question13Radios2">
+                            b) Увеличенное размерное значение поля для длины пакета
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question13" id="question1Question13Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question13Radios3">
+                            c) Улучшенное качество передачи данных
+                        </label>
+                    </div>
+                </div>
+                {#                14 вопрос#}
+                <div class="question">
+                    <h5>14. Чем обусловлено улучшение в возможностях обработки больших объемов данных в IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question14" id="question1Question14Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question14Radios1">
+                            a) Улучшенными алгоритмами сжатия
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question14" id="question1Question14Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question14Radios2">
+                            b) Оптимизированными методами передачи данных
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question14" id="question1Question14Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question14Radios3">
+                            c) Поддержкой Jumbo-фреймов
+                        </label>
+                    </div>
+                </div>
+                {#                15 вопрос#}
+                <div class="question">
+                    <h5>15. Для чего используется поле Hop Limit в заголовке IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question15" id="question1Question15Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question15Radios1">
+                            a) Для определения максимального количества переходов
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question15" id="question1Question15Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question15Radios2">
+                            b) Для обозначения приоритета обработки
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question15" id="question1Question15Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question15Radios3">
+                            c) Для контроля качества обслуживания в сети
+                        </label>
+                    </div>
+                </div>
+                {#                16 вопрос#}
+                <div class="question">
+                    <h5>16. Какое преимущество предоставляет IPv6 в поддержке сетевых протоколов?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question16" id="question1Question16Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question16Radios1">
+                            a) Более высокая скорость передачи данных
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question16" id="question1Question16Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question16Radios2">
+                            b) Более гибкие и расширяемые возможности протоколов сетевого уровня
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question16" id="question1Question16Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question16Radios3">
+                            c) Улучшенное качество связи
+                        </label>
+                    </div>
+                </div>
+                {#                17 вопрос#}
+                <div class="question">
+                    <h5>17. В каких режимах работает IPsec в IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question17" id="question1Question17Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question17Radios1">
+                            a) Транспортном и туннельном
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question17" id="question1Question17Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question17Radios2">
+                            b) Открытом и приватном
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question17" id="question1Question17Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question17Radios3">
+                            c) Первичном и вторичном
+                        </label>
+                    </div>
+                </div>
+                {#                18 вопрос#}
+                <div class="question">
+                    <h5>18. В какой системе исчисления кодируется представление IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question18" id="question1Question18Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question18Radios1">
+                            a) Двоичной
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question18" id="question1Question18Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question18Radios2">
+                            b) Десятичной
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question18" id="question1Question18Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question18Radios3">
+                            c) Шестнадцатеричной
+                        </label>
+                    </div>
+                </div>
+                {#                19 вопрос#}
+                <div class="question">
+                    <h5>19. Чем обеспечивается поддержка QoS в IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question19" id="question1Question19Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question19Radios1">
+                            a) Использованием отдельного протокола для маркировки трафика
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question19" id="question1Question19Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question19Radios2">
+                            b) Встроенной поддержкой классов обслуживания
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question19" id="question1Question19Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question19Radios3">
+                            c) Автоматическим управлением памятью
+                        </label>
+                    </div>
+                </div>
+                {#                20 вопрос#}
+                <div class="question">
+                    <h5>20. Какое преимущество получают приложения в IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question20" id="question1Question20Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question1Question20Radios1">
+                            a) Улучшенная скорость передачи данных
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question20" id="question1Question20Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question1Question20Radios2">
+                            b) Более широкий выбор доступных протоколов
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question20" id="question1Question20Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question1Question20Radios3">
+                            c) Поддержка расширенного набора функций, таких как многоадресная доставка и поддержка потоков
+                        </label>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success col-3 mt-3">Проверить результаты</button>
+                </div>
+
+            </form>
+            <div style="margin-bottom: 5rem">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,276 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    Тест 3
+{% endblock %}
+
+{% block content %}
+    {#    {% include "main/fragments/header.html" %}#}
+    <div class="row justify-content-center mt-3">
+        <div class="col-8">
+            <a href="/" class="mt-2 h5 text-decoration-none" style="margin-right: 2rem">На главную</a>
+            <hr class="mt-0 mb-4">
+            <div class="mt-2 h4">Тест: "Сокращение адресов IPv6"</div>
+            <form action="/testing" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="number" value="3">
+                {#                1 вопрос#}
+                <div class="question">
+                    <h5>1. Какие ведущие нули можно опустить при сокращении IPv6-адреса?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="question3Question1Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question3Question1Radios1">
+                            a) Только в группе из 8 бит
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="question3Question1Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question3Question1Radios2">
+                            b) Только в группе из 16 бит
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question1" id="question3Question1Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question3Question1Radios3">
+                            c) В любой группе из 16 бит
+                        </label>
+                    </div>
+                </div>
+                {#                2 вопрос#}
+                <div class="question">
+                    <h5>2. Что означает использование двойного двоеточия (::) в сокращенном IPv6-адресе?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question2" id="question3Question2Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question3Question2Radios1">
+                            a) Заполнение пропущенных нулевых групп в IPv6-адресе
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question2" id="question3Question2Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question3Question2Radios2">
+                            b) Обозначение разрыва между двумя подсетями
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question2" id="question3Question2Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question3Question2Radios3">
+                            c) Замена всех групп адреса нулями
+                        </label>
+                    </div>
+                </div>
+                {#                3 вопрос#}
+                <div class="question">
+                    <h5>3. Сколько раз можно использовать двойное двоеточие в одном адресе IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="question3Question3Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question3Question3Radios1">
+                            a) Только один раз
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="question3Question3Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question3Question3Radios2">
+                            b) Два раза
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question3" id="question3Question3Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question3Question3Radios3">
+                            c) Столько раз, сколько требуется
+                        </label>
+                    </div>
+                </div>
+                {#                4 вопрос#}
+                <div class="question">
+                    <h5>4. Когда следует избегать использования сокращенной записи адресов IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question4" id="question3Question4Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question3Question4Radios1">
+                            a) При наличии межсетевых экранов
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question4" id="question3Question4Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question3Question4Radios2">
+                            b) При конфигурации шлюза по умолчанию
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question4" id="question3Question4Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question3Question4Radios3">
+                            c) При устранении возможной неоднозначности
+                        </label>
+                    </div>
+                </div>
+                {#                5 вопрос#}
+                <div class="question">
+                    <h5>5. Какие буквы регистра из английского алфавита допустимо использовать при записи IPv6-адресов?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question5" id="question3Question5Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question3Question5Radios1">
+                            a) Только заглавные буквы
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question5" id="question3Question5Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question3Question5Radios2">
+                            b) Только строчные буквы
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question5" id="question3Question5Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question3Question5Radios3">
+                            c) Как заглавные, так и строчные буквы
+                        </label>
+                    </div>
+                </div>
+                {#                6 вопрос#}
+                <div class="question">
+                    <h5>6. Какой из адресов является сокращенной записью для 2001:0db8:0000:0000:0000:0000:0000:0001?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question6" id="question3Question6Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question3Question6Radios1">
+                            a) 2001:db8::1
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question6" id="question3Question6Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question3Question6Radios2">
+                            b) 2001:db8:0:0:0:0:0:1
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question6" id="question3Question6Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question3Question6Radios3">
+                            c) 2001:db8:0001
+                        </label>
+                    </div>
+                </div>
+                {#                7 вопрос#}
+                <div class="question">
+                    <h5>7. Какой из адресов является сокращенной записью для
+                        2001:0db8:85a3:0000:0000:8a2e:0370:7334?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question7" id="question3Question7Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question3Question7Radios1">
+                            a) 2001:db8:85a3::8a2e:370:7334
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question7" id="question3Question7Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question3Question7Radios2">
+                            b) 2001:0db8:85a3:0:0:8a2e:370:7334
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question7" id="question3Question7Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question3Question7Radios3">
+                            c) 2001:db8:85a3:0:0:8a2e:370:7334
+                        </label>
+                    </div>
+                </div>
+                {#                8 вопрос#}
+                <div class="question">
+                    <h5>8. В чем основное преимущество сокращенной записи адресов IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question8" id="question3Question8Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question3Question8Radios1">
+                            a) Улучшение производительности сети
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question8" id="question3Question8Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question3Question8Radios2">
+                            b) Сокращение размера пакетов
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question8" id="question3Question8Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question3Question8Radios3">
+                            c) Улучшение читаемости и удобства использования адресов
+                        </label>
+                    </div>
+                </div>
+                {#                9 вопрос#}
+                <div class="question">
+                    <h5>9. Почему использование двойного двоеточия ограничивается только одним разом в адресе IPv6?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question9" id="question3Question9Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question3Question9Radios1">
+                               a) Для улучшения читаемости адреса
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question9" id="question3Question9Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question3Question9Radios2">
+                            b) Для избегания неоднозначности
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question9" id="question3Question9Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question3Question9Radios3">
+                            c) Для обеспечения безопасности адресации
+                        </label>
+                    </div>
+                </div>
+                {#                10 вопрос#}
+                <div class="question">
+                    <h5>10. Какой из адресов является сокращенной записью для 2001:0db8:0000:00a0:0000:0000:0000:0001?</h5>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question10" id="question3Question10Radios1"
+                               value="1">
+                        <label class="form-check-label" for="question3Question10Radios1">
+                            a) 2001:0db8::a0:0:0:1
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question10" id="question3Question10Radios2"
+                               value="2">
+                        <label class="form-check-label" for="question3Question10Radios2">
+                            b) 2001:db8:0:a0::1
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="question10" id="question3Question10Radios3"
+                               value="3">
+                        <label class="form-check-label" for="question3Question10Radios3">
+                            c) 2001:0db8:0:a0::1
+                        </label>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success col-3 mt-3">Проверить результаты</button>
+                </div>
+            </form>
+            <div style="margin-bottom: 5rem">
+            </div>
+        </div>
+    </div>
+{% endblock %}
