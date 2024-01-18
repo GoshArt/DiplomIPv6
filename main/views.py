@@ -39,7 +39,14 @@ def testing(request):
             request.session['number'] = num
             test_answer = TestAnswer(test_result=result_test, test_id_id=test.id, user_id_id=request.session['id'])
             test_answer.save()
-            return redirect('/result')
+            if int(num) == 1:
+                if request.session['result'] > "2":
+                    user = User.objects.get(id=request.session['id'])
+                    user.theme_status = user.theme_status[:0] + '1' + user.theme_status[1:]
+                    user.save(update_fields=["theme_status"])
+                return render(request, 'result_task_page.html',
+                              {'result': request.session['result'], 'number': num})
+            return redirect('/test_result')
         else:
             return render(request, 'tests/test' + str(num) + '.html', {'auth': request.session.get('auth')})
     else:
@@ -52,7 +59,10 @@ def index(request):
     elif request.session.get('auth') is False:
         return redirect('/login')
     else:
-        return render(request, 'index.html', {'auth': request.session.get('auth')})
+        status = list(User.objects.get(id=request.session['id']).theme_status)
+        return render(request, 'index.html', {'auth': request.session.get('auth'),
+                                              'status1': status[0], 'status2': status[1], 'status3': status[2],
+                                              'status4': status[3], 'status5': status[4], 'status6': status[5]})
 
 
 def result(request):
@@ -70,30 +80,37 @@ def result(request):
 
 
 def exercise(request):
-    if request.session.get('auth'):
+    if request.session.get('auth') and request.method == 'POST':
         form = dict(request.POST)
         num = int(form.get('number')[0])
-        if request.method == 'POST':
-            result_task = 0
+        return render(request, 'tasks/task' + str(num) + '.html', {'auth': request.session.get('auth')})
+    else:
+        return redirect('/login')
+
+
+def processing_task_results(request):
+    if request.method == 'POST':
+        form = dict(request.POST)
+        num = int(form.get('number')[0])
+        result_task = 0
+        if num == 2:
             task = Task.objects.filter(task_number=str(num)).first()
             answers = json.loads(task.task_answer)
-            if num == "2":
-                for i in range(8):
-                    if form.get('formChoice' + str(i + 1))[0] == answers['naming'][i]:
-                        result_task += 1
-                for i in range(8):
-                    if form.get('size' + str(i + 1))[0] == answers['len'][str(i+1)]:
-                        result_task += 1
-                print(result_task)
-            if len(form) == 2:
-                return render(request, 'tasks/task' + str(num) + '.html', {'auth': request.session.get('auth')})
-            request.session['result'] = calculation_result(len(task.task_answer), result_task)
-            request.session['number'] = num
+            for i in range(8):
+                if form.get('formChoice' + str(i + 1))[0] == answers['naming'][i]:
+                    result_task += 1
+            for i in range(8):
+                if form.get('size' + str(i + 1))[0] == answers['len'][i]:
+                    result_task += 1
             task_answer = TaskAnswer(task_result=result_task, task_id_id=task.id, user_id_id=request.session['id'])
             task_answer.save()
-            return redirect('/result')
-        else:
-            return render(request, 'task/task' + str(num) + '.html', {'auth': request.session.get('auth')})
+            if calculation_result(16, result_task) > "2":
+                user = User.objects.get(id=request.session['id'])
+                user.theme_status = user.theme_status[:1] + '1' + user.theme_status[2:]
+                user.save(update_fields=["theme_status"])
+            return render(request, 'result_task_page.html',
+                          {'result': calculation_result(16, result_task), 'number': num})
+
     else:
         return redirect('/login')
 
@@ -139,10 +156,6 @@ def lecture(request):
         return render(request, 'lectures/lecture' + str(num) + '.html', {'auth': request.session.get('auth')})
     else:
         return redirect('/login')
-
-
-def task2(request):
-    return render(request, 'tasks/task2.html', {'auth': request.session.get('auth')})
 
 
 def task3(request):

@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+    Результат
+{% endblock %}
+
+{% block content %}
+    {#    {% include "main/fragments/header.html" %}#}
+    <div class="row justify-content-center mt-3">
+        <div class="col-8">
+            <a href="/" class="mt-2 h5 text-decoration-none" style="margin-right: 2rem">На главную</a>
+            <hr class="mt-0 mb-4">
+            {% if result != '2' %}
+                <h3>Поздравляем!</h3>
+                <h3>Ваша оценка: {{ result }}</h3>
+                <h4>Вы успешно завершили тему</h4>
+                <form action="/" method="post" class="d-flex flex-column w-100">
+                    {% csrf_token %}
+                    <button class="btn btn-primary" style="width: max-content" type="submit">Вернутся в меню</button>
+                </form>
+            {% else %}
+                <h3>К сожалению</h3>
+                <h3>Ваша оценка: {{ result }}</h3>
+                <h4>Вернитесь к началу и попробуйте снова</h4>
+                <form action="/lecture" method="post" class="d-flex flex-column w-100">
+                    {% csrf_token %}
+                    <input type="hidden" name="number" value="{{  number }}">
+                    <button class="btn btn-primary" style="width: max-content" type="submit">Открыть лекцию</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
