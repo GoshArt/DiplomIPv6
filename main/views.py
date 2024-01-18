@@ -1,13 +1,27 @@
 import json
 
 from django.shortcuts import render, redirect
+from django.template.context_processors import static
+
 from main.models import User
 from main.models import Test
 from main.models import Task
 from main.models import TestAnswer
 from main.models import TaskAnswer
+from main.models import RecordingAddresses
 from django.utils.html import escape
 import random
+
+
+def add_data(request):
+    full = open("main/static/main/address/full.txt", "r+")
+    small = open("main/static/main/address/small.txt", "r+")
+    for i in range(150):
+        full_line = full.readline()
+        small_line = small.readline()
+        record_address = RecordingAddresses(full_record=full_line[0:39], abbreviation=small_line[0:39])
+        record_address.save()
+    return redirect('/')
 
 
 def calculation_result(total, right):
@@ -37,7 +51,7 @@ def testing(request):
                 return render(request, 'tests/test' + str(num) + '.html', {'auth': request.session.get('auth')})
             request.session['result'] = calculation_result(len(test.test_answer), result_test)
             request.session['number'] = num
-            test_answer = TestAnswer(test_result=result_test, test_id_id=test.id, user_id_id=request.session['id'])
+            test_answer = TestAnswer(test_result=calculation_result(len(test.test_answer), result_test), test_id_id=test.id, user_id_id=request.session['id'])
             test_answer.save()
             if int(num) == 1:
                 if request.session['result'] > "2":
@@ -102,7 +116,7 @@ def processing_task_results(request):
             for i in range(8):
                 if form.get('size' + str(i + 1))[0] == answers['len'][i]:
                     result_task += 1
-            task_answer = TaskAnswer(task_result=result_task, task_id_id=task.id, user_id_id=request.session['id'])
+            task_answer = TaskAnswer(task_result=calculation_result(16, result_task), task_id_id=task.id, user_id_id=request.session['id'])
             task_answer.save()
             if calculation_result(16, result_task) > "2":
                 user = User.objects.get(id=request.session['id'])
@@ -125,6 +139,7 @@ def login(request):
             request.session['auth'] = True
             request.session['name'] = username
             request.session['id'] = user.id
+            request.session['role'] = user.role
             request.session['result'] = ''
             return redirect('/')
     return render(request, 'login.html')
@@ -164,3 +179,9 @@ def task3(request):
 
 def task4(request):
     return render(request, 'tasks/task4.html', {'auth': request.session.get('auth')})
+
+def teacher_page(request):
+    if request.session.get('auth') and request.session.get('role') == "TEACHER" or request.session.get('role') == "OWNER":
+        return render(request, 'teacher_page.html', {'auth': request.session.get('auth')})
+    else:
+        return redirect('/login')

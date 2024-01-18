@@ -14,4 +14,6 @@ urlpatterns = [
     path('ex_results', views.processing_task_results),
     path('task3', views.task3),
     path('task4', views.task4),
+    path('add_data', views.add_data),
+    path('teacher_page', views.teacher_page),
 ]

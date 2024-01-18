@@ -37,3 +37,8 @@ class TaskAnswer(models.Model):
     task_id = models.ForeignKey(Task, on_delete=models.DO_NOTHING)
     task_result = models.IntegerField()
     create_date = models.DateTimeField(auto_now_add=True)
+
+
+class RecordingAddresses(models.Model):
+    full_record = models.CharField(max_length=50)
+    abbreviation = models.CharField(max_length=50)
