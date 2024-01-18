@@ -20,12 +20,12 @@ def add_data(request):
     tests_ans = open("main/static/main/address/test_answer.txt", "r+")
     for i in range(1):
         task_line = tasks_ans.readline()
-        task_ans = Task(task_number=task_line[:1], task_answer=task_line[1:len(task_line)-2])
+        task_ans = Task(task_number=task_line[:1], task_answer=task_line[1:len(task_line)])
         task_ans.save()
     for i in range(5):
         test_line = tests_ans.readline()
-        task_ans = Task(test_number=test_line[:1], test_answer=test_line[1:len(test_line) - 2])
-        task_ans.save()
+        test_ans = Test(test_number=test_line[:1], test_answer=test_line[1:len(test_line)])
+        test_ans.save()
     for i in range(150):
         full_line = full.readline()
         small_line = small.readline()
