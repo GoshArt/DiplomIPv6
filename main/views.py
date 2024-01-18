@@ -16,6 +16,16 @@ import random
 def add_data(request):
     full = open("main/static/main/address/full.txt", "r+")
     small = open("main/static/main/address/small.txt", "r+")
+    tasks_ans = open("main/static/main/address/task_answer.txt", "r+")
+    tests_ans = open("main/static/main/address/test_answer.txt", "r+")
+    for i in range(1):
+        task_line = tasks_ans.readline()
+        task_ans = Task(task_number=task_line[:1], task_answer=task_line[1:len(task_line)-2])
+        task_ans.save()
+    for i in range(5):
+        test_line = tests_ans.readline()
+        task_ans = Task(test_number=test_line[:1], test_answer=test_line[1:len(test_line) - 2])
+        task_ans.save()
     for i in range(150):
         full_line = full.readline()
         small_line = small.readline()
@@ -51,7 +61,8 @@ def testing(request):
                 return render(request, 'tests/test' + str(num) + '.html', {'auth': request.session.get('auth')})
             request.session['result'] = calculation_result(len(test.test_answer), result_test)
             request.session['number'] = num
-            test_answer = TestAnswer(test_result=calculation_result(len(test.test_answer), result_test), test_id_id=test.id, user_id_id=request.session['id'])
+            test_answer = TestAnswer(test_result=calculation_result(len(test.test_answer), result_test),
+                                     test_id_id=test.id, user_id_id=request.session['id'])
             test_answer.save()
             if int(num) == 1:
                 if request.session['result'] > "2":
@@ -116,7 +127,8 @@ def processing_task_results(request):
             for i in range(8):
                 if form.get('size' + str(i + 1))[0] == answers['len'][i]:
                     result_task += 1
-            task_answer = TaskAnswer(task_result=calculation_result(16, result_task), task_id_id=task.id, user_id_id=request.session['id'])
+            task_answer = TaskAnswer(task_result=calculation_result(16, result_task), task_id_id=task.id,
+                                     user_id_id=request.session['id'])
             task_answer.save()
             if calculation_result(16, result_task) > "2":
                 user = User.objects.get(id=request.session['id'])
@@ -180,8 +192,10 @@ def task3(request):
 def task4(request):
     return render(request, 'tasks/task4.html', {'auth': request.session.get('auth')})
 
+
 def teacher_page(request):
-    if request.session.get('auth') and request.session.get('role') == "TEACHER" or request.session.get('role') == "OWNER":
+    if request.session.get('auth') and request.session.get('role') == "TEACHER" or request.session.get(
+            'role') == "OWNER":
         return render(request, 'teacher_page.html', {'auth': request.session.get('auth')})
     else:
         return redirect('/login')
