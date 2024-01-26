@@ -90,11 +90,11 @@ DATABASES = {
         # 'NAME': os.getenv("DATABASE_NAME"),
         # 'USER': os.getenv("DATABASE_USER"),
         # 'PASSWORD': os.getenv("DATABASE_PASSWORD"),
-        'NAME': "diplomaProject",
-        'USER': "postgres",
-        'PASSWORD': "postgres",
-        'HOST': os.getenv("DATABASE_HOST"),
-        'PORT': os.environ.get("DATABASE_PORT"),
+        'NAME': "test",
+        'USER': "test",
+        'PASSWORD': "test",
+        'HOST': "localhost",
+        'PORT': "",
     }
 }
 
@@ -134,6 +134,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR,'static/')
 STATICFILES_DIRS = [
     BASE_DIR / 'main/static'
 
