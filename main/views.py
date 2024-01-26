@@ -1,5 +1,7 @@
+import ipaddress
 import json
 
+from django.db.models import Max
 from django.shortcuts import render, redirect
 from django.template.context_processors import static
 
@@ -18,19 +20,26 @@ def add_data(request):
     small = open("main/static/main/address/small.txt", "r+")
     tasks_ans = open("main/static/main/address/task_answer.txt", "r+")
     tests_ans = open("main/static/main/address/test_answer.txt", "r+")
-    for i in range(1):
+    for i in range(3):
         task_line = tasks_ans.readline()
-        task_ans = Task(task_number=task_line[:1], task_answer=task_line[1:len(task_line)])
-        task_ans.save()
+        Task(task_number=task_line[:1], task_answer=task_line[1:]).save()
     for i in range(5):
         test_line = tests_ans.readline()
-        test_ans = Test(test_number=test_line[:1], test_answer=test_line[1:len(test_line)])
-        test_ans.save()
+        Test(test_number=test_line[:1], test_answer=test_line[1:]).save()
     for i in range(150):
         full_line = full.readline()
         small_line = small.readline()
-        record_address = RecordingAddresses(full_record=full_line[0:39], abbreviation=small_line[0:39])
-        record_address.save()
+        RecordingAddresses(full_record=full_line[:39], abbreviation=small_line[:39]).save()
+    return redirect('/')
+
+
+def delete_data(request):
+    addresses = RecordingAddresses.objects.all()
+    addresses.delete()
+    tasks = Task.objects.all()
+    tasks.delete()
+    tests = Test.objects.all()
+    tests.delete()
     return redirect('/')
 
 
@@ -64,10 +73,10 @@ def testing(request):
             test_answer = TestAnswer(test_result=calculation_result(len(test.test_answer), result_test),
                                      test_id_id=test.id, user_id_id=request.session['id'])
             test_answer.save()
-            if int(num) == 1:
+            if num == 1 or num == 6:
                 if request.session['result'] > "2":
                     user = User.objects.get(id=request.session['id'])
-                    user.theme_status = user.theme_status[:0] + '1' + user.theme_status[1:]
+                    user.theme_status = user.theme_status[:num - 1] + '1' + user.theme_status[num:]
                     user.save(update_fields=["theme_status"])
                 return render(request, 'result_task_page.html',
                               {'result': request.session['result'], 'number': num})
@@ -85,9 +94,13 @@ def index(request):
         return redirect('/login')
     else:
         status = list(User.objects.get(id=request.session['id']).theme_status)
-        return render(request, 'index.html', {'auth': request.session.get('auth'),
-                                              'status1': status[0], 'status2': status[1], 'status3': status[2],
-                                              'status4': status[3], 'status5': status[4], 'status6': status[5]})
+        lectures_name = ["Преимущества IPv6", "Заголовок пакета", "Сокращение адресов IPv6",
+                         "Создание подсетей в протоколе IPv6", "Специальные адреса IPv6", "Взаимодействие IPv4 и IPv6"]
+        data = []
+        for i in range(len(lectures_name)):
+            if i != 4:  # Убирает 5 недоделанную тему
+                data.append({'lecture_name': lectures_name[i], 'status': status[i], 'value': i + 1})
+        return render(request, 'index.html', {'auth': request.session.get('auth'), 'lectures': data})
 
 
 def result(request):
@@ -108,6 +121,57 @@ def exercise(request):
     if request.session.get('auth') and request.method == 'POST':
         form = dict(request.POST)
         num = int(form.get('number')[0])
+        if num == 3:
+            addresses = RecordingAddresses.objects.order_by('?')[:12]
+            id_addresses = []
+            f_addresses = []
+            a_addresses = []
+            i = 0
+            for address in addresses:
+                id_addresses.append(address.id)
+                if i < len(addresses) / 2:
+                    f_addresses.append(address.full_record)
+                else:
+                    a_addresses.append(address.abbreviation)
+                i += 1
+            request.session["id_addresses"] = id_addresses
+            return render(request, 'tasks/task3.html',
+                          {'auth': request.session.get('auth'), "f_addresses": f_addresses, "a_addresses": a_addresses})
+        if num == 4:
+            task_4_data = []
+            task_texts = []
+            for i in range(3):
+                type_task = random.choice([True, False])  # True - 4 бита False - 5 битов
+                if type_task:
+                    type_task_text = "подсети."
+                else:
+                    type_task_text = "интерфейса."
+                addresses_names = ['a136', 'b062', '7f8c', '974c', 'ff0d', 'cb8b', '8e51', 'afbc',
+                                   '11ae', '153f', 'a39f', 'fc97', '0445', '1d4c', '6209', 'ab7a',
+                                   '5dc3', '9692', 'd4f1', 'af91', '3c97', '4a0f', '5b60', 'b72b',
+                                   'ed0c', '149c', '15dc', '1e69', '687d', 'ba80', '99b9', 'cc8a',
+                                   '6358', 'f32e', 'aa29', '4c49', 'b88d', '970e', '3a78', 'f88c',
+                                   'b89c', 'da45', '73b6', '180a', '9df3', '85e6', '7f34', '1608',
+                                   'd8dd', '719c', '5138', '3f2c', 'a6e8', '22a9', '4eed', '2993',
+                                   'f3f8', '5710', '4acc', '2a75', '50a6', '7d28', '8a33', 'fe9a',
+                                   'e424', '7d97', '252b', '89f7', '5bd6', '1e4a', '734d', '6bd3',
+                                   '1870', 'a633', 'b6b4', '15bf', '7494', '0c7d', '8d98', '2def',
+                                   '0ee5', '378b', '8f7d', '6835', 'b0c1', 'f451', 'cc42', '2f39',
+                                   '8d51', 'b269', '9729', 'eedc', 'ee80', 'bc4b', 'ce67', 'af69',
+                                   '0054', '2329', '7361', '4cbb', 'c368', '7f27', 'a042', 'c5d0',
+                                   '3057', 'ee51', 'f62c', '6b13', '1fd0', 'ca8a', '1d23', '3e33',
+                                   '1030', '7d04', '61de', '3ae1', '960b', '229f', 'caab', '0000',
+                                   'ca32', 'f177', '09f1', '5242', '2883', 'ca35', '2df6', 'bd86']
+                random.shuffle(addresses_names)
+                address_name = addresses_names[0] + ':' + addresses_names[1] + ':' + addresses_names[1]
+                number_of_subnets = random.randint(17, 4080)
+                task_text = "Произведите разбиение сети " + address_name + ":: на " + str(
+                    number_of_subnets) + " подсети с использованием идентификатора " + type_task_text
+                task_texts.append(task_text)
+                task_4_data.append([type_task, address_name, number_of_subnets])
+            request.session["task_4_data"] = task_4_data
+            return render(request, 'tasks/task4.html',
+                          {'auth': request.session.get('auth'), "tasks": task_texts})
         return render(request, 'tasks/task' + str(num) + '.html', {'auth': request.session.get('auth')})
     else:
         return redirect('/login')
@@ -118,6 +182,7 @@ def processing_task_results(request):
         form = dict(request.POST)
         num = int(form.get('number')[0])
         result_task = 0
+        grade = 0
         if num == 2:
             task = Task.objects.filter(task_number=str(num)).first()
             answers = json.loads(task.task_answer)
@@ -127,16 +192,43 @@ def processing_task_results(request):
             for i in range(8):
                 if form.get('size' + str(i + 1))[0] == answers['len'][i]:
                     result_task += 1
-            task_answer = TaskAnswer(task_result=calculation_result(16, result_task), task_id_id=task.id,
-                                     user_id_id=request.session['id'])
-            task_answer.save()
-            if calculation_result(16, result_task) > "2":
-                user = User.objects.get(id=request.session['id'])
-                user.theme_status = user.theme_status[:1] + '1' + user.theme_status[2:]
-                user.save(update_fields=["theme_status"])
-            return render(request, 'result_task_page.html',
-                          {'result': calculation_result(16, result_task), 'number': num})
-
+            grade = calculation_result(16, result_task)
+        if num == 3:
+            for i in range(12):
+                address = RecordingAddresses.objects.filter(id=request.session["id_addresses"][i]).first()
+                if i < 6 and str.strip(form['address'][i].lower()) == str.strip(address.abbreviation):
+                    result_task += 1
+                if i >= 6 and str.strip(form['address'][i].lower()) == str.strip(address.full_record):
+                    result_task += 1
+            grade = calculation_result(12, result_task)
+        if num == 4:
+            i = 0
+            for task_data in request.session["task_4_data"]:
+                number_of_subnets_hex = hex(int(task_data[2]))[2:]  # True - 4 бита False - 5 битов
+                subnet = ":0000:0"
+                len_num_sub = len(number_of_subnets_hex)
+                if task_data[0]:
+                    subnet = subnet[:len(subnet) - len_num_sub - 2] + str(number_of_subnets_hex) + ":0"
+                else:
+                    subnet = (subnet[:len(subnet) - len_num_sub - 1] +
+                              str(number_of_subnets_hex[:len_num_sub - 1]) +
+                              ":" + number_of_subnets_hex[len_num_sub - 1:len_num_sub])
+                ans_address = task_data[1] + subnet + "000:0000:0000:0000"
+                try:
+                    if ipaddress.IPv6Address(ans_address) == ipaddress.IPv6Address(form.get('address')[i]):
+                        result_task += 1
+                finally:
+                    i += 1
+            grade = calculation_result(3, result_task)
+        task_answer = TaskAnswer(task_result=grade, task_id_id=Task.objects.filter(task_number=num).first().id,
+                                 user_id_id=request.session['id'])
+        task_answer.save()
+        if grade > "2":
+            user = User.objects.get(id=request.session['id'])
+            user.theme_status = user.theme_status[:num - 1] + '1' + user.theme_status[num:]
+            user.save(update_fields=["theme_status"])
+        return render(request, 'result_task_page.html',
+                      {'result': grade, 'number': num})
     else:
         return redirect('/login')
 
@@ -161,6 +253,7 @@ def logout(request):
     request.session['auth'] = False
     request.session['name'] = ''
     request.session['id'] = ''
+    request.session['role'] = ''
     return redirect('/')
 
 
@@ -183,14 +276,6 @@ def lecture(request):
         return render(request, 'lectures/lecture' + str(num) + '.html', {'auth': request.session.get('auth')})
     else:
         return redirect('/login')
-
-
-def task3(request):
-    return render(request, 'tasks/task3.html', {'auth': request.session.get('auth')})
-
-
-def task4(request):
-    return render(request, 'tasks/task4.html', {'auth': request.session.get('auth')})
 
 
 def teacher_page(request):

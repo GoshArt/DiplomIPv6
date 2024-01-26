@@ -208,8 +208,12 @@
                 сетевые интерфейсы и шлюзы. Вывод этой команды может помочь в понимании того, как происходит
                 преобразование и маршрутизация IPv6 адресов внутри вашей сети, что является важным аспектом при
                 настройке и отладке сетевых соединений.</p>
-            <div class="d-flex justify-content-center">
-                <a href="/testing" class="btn btn-success mb-5">Перейти к тесту</a>
+            <div class="d-flex justify-content-center mb-5">
+                <form action="/testing" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="number" value="6">
+                    <button type="submit" class="btn btn-success">Перейти к тесту</button>
+                </form>
             </div>
         </div>
     </div>

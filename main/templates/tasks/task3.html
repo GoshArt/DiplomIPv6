@@ -10,51 +10,26 @@
         <div class="col-8">
             <a href="/" class="mt-2 h5 text-decoration-none" style="margin-right: 2rem">На главную</a>
             <hr class="mt-0 mb-4">
-            <div class="mt-2 h4">Заполните поля заголовка пакета IPv6 и укажите их размер</div>
         </div>
         <div class="col-8">
-            <form action="" method="get">
+            <form action="/ex_results" method="post">
+            {% csrf_token %}
+            <input type="hidden" value="3" name="number">
                 <div class="reduction-block row">
-                    <div class="reduction_address col-xl-6 col">
-                        <p>0000:0000:0000:0000:0000:0000:0000:0000</p>
-                        <input class="form-control" type="text" placeholder="" name="field1">
-                    </div>
-                    <div class="reduction_address col-xl-6 col">
-                        <p>0000:0000:0000:0000:0000:0000:0000:0000</p>
-                        <input class="form-control" type="text" placeholder="" name="field2">
-                    </div>
-                    <div class="reduction_address col-xl-6 col">
-                        <p>0000:0000:0000:0000:0000:0000:0000:0000</p>
-                        <input class="form-control" type="text" placeholder="" name="field3">
-                    </div>
-                    <div class="reduction_address col-xl-6 col">
-                        <p>0000:0000:0000:0000:0000:0000:0000:0000</p>
-                        <input class="form-control" type="text" placeholder="" name="field4">
-                    </div>
-                    <div class="reduction_address col-xl-6 col">
-                        <p>0000:0000:0000:0000:0000:0000:0000:0000</p>
-                        <input class="form-control" type="text" placeholder="" name="field5">
-                    </div>
-                    <div class="reduction_address col-xl-6 col">
-                        <p>0000:0000:0000:0000:0000:0000:0000:0000</p>
-                        <input class="form-control" type="text" placeholder="" name="field6">
-                    </div>
-                    <div class="reduction_address col-xl-6 col">
-                        <p>0000:0000:0000:0000:0000:0000:0000:0000</p>
-                        <input class="form-control" type="text" placeholder="" name="field7">
-                    </div>
-                    <div class="reduction_address col-xl-6 col">
-                        <p>0000:0000:0000:0000:0000:0000:0000:0000</p>
-                        <input class="form-control" type="text" placeholder="" name="field8">
-                    </div>
-                    <div class="reduction_address col-xl-6 col">
-                        <p>0000:0000:0000:0000:0000:0000:0000:0000</p>
-                        <input class="form-control" type="text" placeholder="" name="field9">
-                    </div>
-                    <div class="reduction_address col-xl-6 col">
-                        <p>0000:0000:0000:0000:0000:0000:0000:0000</p>
-                        <input class="form-control" type="text" placeholder="" name="field10">
-                    </div>
+                    <h4 class="mt-2">Сократите адреса IPv6</h4>
+                    {% for address in f_addresses %}
+                        <div class="reduction_address col-xl-6 col">
+                            <p>{{ address }}</p>
+                            <input class="form-control" type="number" placeholder="" name="address" required>
+                        </div>
+                    {% endfor %}
+                    <h4 class="mt-2">Восстановите полные адреса IPv6</h4>
+                    {% for address in a_addresses %}
+                        <div class="reduction_address col-xl-6 col">
+                            <p>{{ address }}</p>
+                            <input class="form-control" type="text" placeholder="" name="address" required>
+                        </div>
+                    {% endfor %}
                 </div>
                 <div class="d-flex justify-content-center ">
                     <button type="submit" class="btn btn-success col-6 mt-3">Проверить результаты</button>
