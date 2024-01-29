@@ -20,7 +20,7 @@ def add_data(request):
     small = open("main/static/main/address/small.txt", "r+")
     tasks_ans = open("main/static/main/address/task_answer.txt", "r+")
     tests_ans = open("main/static/main/address/test_answer.txt", "r+")
-    for i in range(3):
+    for i in range(4):
         task_line = tasks_ans.readline()
         Task(task_number=task_line[:1], task_answer=task_line[1:]).save()
     for i in range(5):
@@ -217,8 +217,10 @@ def processing_task_results(request):
                 try:
                     if ipaddress.IPv6Address(ans_address) == ipaddress.IPv6Address(form.get('address')[i]):
                         result_task += 1
-                finally:
-                    i += 1
+                except:
+                    print("Nop")
+
+                i += 1
             grade = calculation_result(3, result_task)
         task_answer = TaskAnswer(task_result=grade, task_id_id=Task.objects.filter(task_number=num).first().id,
                                  user_id_id=request.session['id'])
