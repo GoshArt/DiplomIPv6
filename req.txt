@@ -8,3 +8,4 @@ typing_extensions==4.8.0
 tzdata==2023.3
 django-crispy-forms==2.1
 crispy-bootstrap5==2023.10
+gunicorn
