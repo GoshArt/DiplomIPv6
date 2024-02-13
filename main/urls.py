@@ -12,7 +12,9 @@ urlpatterns = [
     path('testing', views.testing),
     path('exercise', views.exercise),
     path('ex_results', views.processing_task_results),
-    path('add_data', views.add_data),
-    path('delete_data', views.delete_data),
-    path('teacher_page', views.teacher_page),
+    path('teacher', views.teacher_page),
+    path('delete_user', views.delete_user),
+    path('delete_all', views.delete_all),
+    path('replace_pass', views.replace_pass),
+    path('generate_code', views.generate_code),
 ]

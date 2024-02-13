@@ -1,9 +1,7 @@
 import ipaddress
 import json
 
-from django.db.models import Max
 from django.shortcuts import render, redirect
-from django.template.context_processors import static
 
 from main.models import User
 from main.models import Test
@@ -11,36 +9,9 @@ from main.models import Task
 from main.models import TestAnswer
 from main.models import TaskAnswer
 from main.models import RecordingAddresses
+from main.models import access_codes
 from django.utils.html import escape
 import random
-
-
-def add_data(request):
-    full = open("main/static/main/address/full.txt", "r+")
-    small = open("main/static/main/address/small.txt", "r+")
-    tasks_ans = open("main/static/main/address/task_answer.txt", "r+")
-    tests_ans = open("main/static/main/address/test_answer.txt", "r+")
-    for i in range(4):
-        task_line = tasks_ans.readline()
-        Task(task_number=task_line[:1], task_answer=task_line[1:]).save()
-    for i in range(5):
-        test_line = tests_ans.readline()
-        Test(test_number=test_line[:1], test_answer=test_line[1:]).save()
-    for i in range(150):
-        full_line = full.readline()
-        small_line = small.readline()
-        RecordingAddresses(full_record=full_line[:39], abbreviation=small_line[:39]).save()
-    return redirect('/')
-
-
-def delete_data(request):
-    addresses = RecordingAddresses.objects.all()
-    addresses.delete()
-    tasks = Task.objects.all()
-    tasks.delete()
-    tests = Test.objects.all()
-    tests.delete()
-    return redirect('/')
 
 
 def calculation_result(total, right):
@@ -56,6 +27,8 @@ def calculation_result(total, right):
 
 
 def testing(request):
+    if request.POST.get('number') is None:
+        return redirect('/')
     if request.session.get('auth'):
         form = dict(request.POST)
         num = int(form.get('number')[0])
@@ -88,6 +61,26 @@ def testing(request):
 
 
 def index(request):
+    if User.objects.filter(role="TEACHER").first() is None:
+        full = open("main/static/main/address/full.txt", "r+")
+        small = open("main/static/main/address/small.txt", "r+")
+        tasks_ans = open("main/static/main/address/task_answer.txt", "r+")
+        tests_ans = open("main/static/main/address/test_answer.txt", "r+")
+        for i in range(4):
+            task_line = tasks_ans.readline()
+            Task(task_number=task_line[:1], task_answer=task_line[1:]).save()
+        for i in range(5):
+            test_line = tests_ans.readline()
+            Test(test_number=test_line[:1], test_answer=test_line[1:]).save()
+        for i in range(150):
+            full_line = full.readline()
+            small_line = small.readline()
+            RecordingAddresses(full_record=full_line[:39], abbreviation=small_line[:39]).save()
+        user = User(user_nickname="admin",
+                    user_password="admin",
+                    student_group=0,
+                    role="TEACHER")
+        user.save()
     if request.session.get('auth') is None:
         return redirect('/registration')
     elif request.session.get('auth') is False:
@@ -100,7 +93,8 @@ def index(request):
         for i in range(len(lectures_name)):
             if i != 4:  # Убирает 5 недоделанную тему
                 data.append({'lecture_name': lectures_name[i], 'status': status[i], 'value': i + 1})
-        return render(request, 'index.html', {'auth': request.session.get('auth'), 'lectures': data})
+        return render(request, 'index.html',
+                      {'auth': request.session.get('auth'), 'role': request.session.get('role'), 'lectures': data})
 
 
 def result(request):
@@ -118,6 +112,8 @@ def result(request):
 
 
 def exercise(request):
+    if request.POST.get('number') is None:
+        return redirect('/')
     if request.session.get('auth') and request.method == 'POST':
         form = dict(request.POST)
         num = int(form.get('number')[0])
@@ -143,9 +139,9 @@ def exercise(request):
             for i in range(3):
                 type_task = random.choice([True, False])  # True - 4 бита False - 5 битов
                 if type_task:
-                    type_task_text = "подсети."
+                    type_task_text = "подсети "
                 else:
-                    type_task_text = "интерфейса."
+                    type_task_text = "интерфейса "
                 addresses_names = ['a136', 'b062', '7f8c', '974c', 'ff0d', 'cb8b', '8e51', 'afbc',
                                    '11ae', '153f', 'a39f', 'fc97', '0445', '1d4c', '6209', 'ab7a',
                                    '5dc3', '9692', 'd4f1', 'af91', '3c97', '4a0f', '5b60', 'b72b',
@@ -165,8 +161,8 @@ def exercise(request):
                 random.shuffle(addresses_names)
                 address_name = addresses_names[0] + ':' + addresses_names[1] + ':' + addresses_names[1]
                 number_of_subnets = random.randint(17, 4080)
-                task_text = "Произведите разбиение сети " + address_name + ":: на " + str(
-                    number_of_subnets) + " подсети с использованием идентификатора " + type_task_text
+                task_text = "Произведите разбиение сети " + address_name + ":: на подсети с использованием идентификатора " + type_task_text + "и укажите " + str(
+                    number_of_subnets) + " подсеть."
                 task_texts.append(task_text)
                 task_4_data.append([type_task, address_name, number_of_subnets])
             request.session["task_4_data"] = task_4_data
@@ -178,6 +174,8 @@ def exercise(request):
 
 
 def processing_task_results(request):
+    if request.POST.get('number') is None:
+        return redirect('/')
     if request.method == 'POST':
         form = dict(request.POST)
         num = int(form.get('number')[0])
@@ -187,10 +185,9 @@ def processing_task_results(request):
             task = Task.objects.filter(task_number=str(num)).first()
             answers = json.loads(task.task_answer)
             for i in range(8):
-                if form.get('formChoice' + str(i + 1))[0] == answers['naming'][i]:
+                if str(form.get('formChoice' + str(i + 1))[0]) == str(answers['naming'][i]):
                     result_task += 1
-            for i in range(8):
-                if form.get('size' + str(i + 1))[0] == answers['len'][i]:
+                if str(form.get('size' + str(i + 1))[0]) == str(answers['len'][i]):
                     result_task += 1
             grade = calculation_result(16, result_task)
         if num == 3:
@@ -219,9 +216,8 @@ def processing_task_results(request):
                         result_task += 1
                 except:
                     print("Nop")
-
                 i += 1
-            grade = calculation_result(3, result_task)
+            grade = 2 + result_task
         task_answer = TaskAnswer(task_result=grade, task_id_id=Task.objects.filter(task_number=num).first().id,
                                  user_id_id=request.session['id'])
         task_answer.save()
@@ -260,9 +256,13 @@ def logout(request):
 
 
 def registration(request):
+    try:
+        code = access_codes.objects.values('access_code').last()['access_code']
+    except:
+        code = "Сгенерируйте"
     if request.method == 'POST' and request.POST['username'] is not None and request.POST['numberGroup'] is not None and \
             request.POST['codeReg'] is not None and request.POST['password'] is not None and \
-            (10 >= len(request.POST['password']) >= 0) and request.POST['codeReg'] == 'test':
+            (10 >= len(request.POST['password']) >= 0) and request.POST['codeReg'] == code:
         user = User(user_nickname=request.POST['username'],
                     user_password=request.POST['password'],
                     student_group=request.POST['numberGroup'])
@@ -272,6 +272,8 @@ def registration(request):
 
 
 def lecture(request):
+    if request.POST.get('number') is None:
+        return redirect('/')
     if request.session.get('auth'):
         form = dict(request.POST)
         num = int(form.get('number')[0])
@@ -283,6 +285,91 @@ def lecture(request):
 def teacher_page(request):
     if request.session.get('auth') and request.session.get('role') == "TEACHER" or request.session.get(
             'role') == "OWNER":
-        return render(request, 'teacher_page.html', {'auth': request.session.get('auth')})
+        users = list(User.objects.filter(role="STUDENT").all().order_by('student_group').values('id', 'user_nickname',
+                                                                                                'student_group',
+                                                                                                'theme_status'))
+        counter = 1
+        name_themes = ['theme1', 'theme2', 'theme3', 'theme4', 'theme5']
+        for user in users:
+            ratings = []
+            for i in range(5):
+                if i == 4:
+                    i += 1
+                try:
+                    test_rating = str(TestAnswer.objects.filter(user_id_id=user['id'], test_id_id=
+                    Test.objects.filter(test_number=i + 1).values('id').first()['id']).values(
+                        'test_result').last()['test_result'])
+                except:
+                    test_rating = "-"
+                task_rating = ''
+                if 0 < i < 4:
+                    try:
+                        task_rating = '/' + str(TaskAnswer.objects.filter(user_id_id=user['id'], task_id_id=
+                        Task.objects.filter(task_number=i + 1).values('id').first()['id']).values(
+                            'task_result').last()['task_result'])
+                    except:
+                        task_rating = '/-'
+                ratings.append(test_rating + task_rating)
+            themes = dict(zip(name_themes, ratings))
+            user.update(themes)
+            user.update({'counter': counter})
+            counter += 1
+        try:
+            code = access_codes.objects.values('access_code').last()['access_code']
+        except:
+            code = "Сгенерируйте"
+        return render(request, 'teacher_page.html',
+                      {'auth': request.session.get('auth'), 'users': users, 'admin_id': request.session['id'],
+                       'code': code})
     else:
         return redirect('/login')
+
+
+def delete_user(request):
+    if request.session.get('auth') and request.session.get('role') == "TEACHER" or request.session.get(
+            'role') == "OWNER" and request.POST.get('number') is not None:
+        TestAnswer.objects.filter(id=request.POST.get('number')).all().delete()
+        TaskAnswer.objects.filter(id=request.POST.get('number')).all().delete()
+        User.objects.filter(id=request.POST.get('number')).delete()
+        return redirect('/teacher')
+    return redirect('/')
+
+
+def delete_all(request):
+    if request.session.get('auth') and request.session.get('role') == "TEACHER" or request.session.get(
+            'role') == "OWNER":
+        TestAnswer.objects.all().delete()
+        TaskAnswer.objects.all().delete()
+        User.objects.filter(role="STUDENT").delete()
+        return redirect('/teacher')
+    return redirect('/')
+
+
+def replace_pass(request):
+    print(request.POST)
+    if request.session.get('auth') and (request.session.get('role') == "TEACHER"
+                                        or request.session.get('role') == "OWNER") and \
+            request.POST.get('oldPassword') is not None and request.POST.get('newPassword') is not None and \
+            request.POST.get('repeatPassword') is not None:
+        user = User.objects.filter(id=request.session['id']).first()
+        print(user)
+        if user.user_password == request.POST.get('oldPassword') and request.POST.get(
+                'newPassword') == request.POST.get('repeatPassword'):
+            user.user_password = request.POST.get('newPassword')
+            user.save(update_fields=["user_password"])
+            return redirect('/teacher')
+        return render(request, 'replace_password.html')
+    elif request.session.get('auth') and (request.session.get('role') == "TEACHER" or request.session.get(
+            'role') == "OWNER"):
+        return render(request, 'replace_password.html')
+    return redirect('/')
+
+
+def generate_code(request):
+    dictionary = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    access_code = []
+    for _ in range(10):
+        access_code.append(dictionary[random.randint(1, len(dictionary) - 1)])
+    access_codes(access_code=''.join(access_code)).save()
+
+    return redirect('/teacher')

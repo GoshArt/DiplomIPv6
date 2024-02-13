@@ -16,7 +16,7 @@
             {% csrf_token %}
             <input type="hidden" value="3" name="number">
                 <div class="reduction-block row">
-                    <h4 class="mt-2">Сократите адреса IPv6</h4>
+                    <h4 class="mt-2">Максимально сократите адреса IPv6</h4>
                     {% for address in f_addresses %}
                         <div class="reduction_address col-xl-6 col">
                             <p>{{ address }}</p>

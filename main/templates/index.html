@@ -8,12 +8,13 @@
     {#    {% include "main/fragments/header.html" %}#}
     <div class="row justify-content-center mt-3">
         <div class="col-8">
-            <p>V.0.9</p>
-            <a href="/registration" class="mt-2 h5 text-decoration-none" style="margin-right: 2rem">Регистрация</a>
-            {% if auth == False %}
-                <a href="/login" class="mt-2 h5 text-decoration-none">Войти</a>
+            {% if auth == True %}
+                <a href="/logout" class="mt-2 h5 text-decoration-none">Выйти из аккаунта</a>
+                {% if role == "TEACHER" %}
+                    <a href="/teacher" class="mt-2 h5 text-decoration-none">Управление учениками</a>
+                {% endif %}
             {% else %}
-                <a href="/logout" class="mt-2 h5 text-decoration-none">Выйти</a>
+                <a href="/login" class="mt-2 h5 text-decoration-none">Войти</a>
             {% endif %}
             <hr class="mt-0 mb-4">
         </div>

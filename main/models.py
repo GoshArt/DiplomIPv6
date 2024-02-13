@@ -42,3 +42,8 @@ class TaskAnswer(models.Model):
 class RecordingAddresses(models.Model):
     full_record = models.CharField(max_length=50)
     abbreviation = models.CharField(max_length=50)
+
+
+class access_codes(models.Model):
+    access_code = models.CharField(max_length=12)
+    create_date = models.DateTimeField(auto_now_add=True)
