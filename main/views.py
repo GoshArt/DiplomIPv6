@@ -77,7 +77,7 @@ def index(request):
             small_line = small.readline()
             RecordingAddresses(full_record=full_line[:39], abbreviation=small_line[:39]).save()
         user = User(user_nickname="admin",
-                    user_password="admin",
+                    user_password="adminadmin",
                     student_group=0,
                     role="TEACHER")
         user.save()
